@@ -1,7 +1,7 @@
 {
   "name": "language-nornj",
-  "main": "./lib/language-nornj",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "author": "kingzhi <zyj10222@126.com>",
   "description": "Nornj syntax highlighting support in Atom",
   "keywords": [
     "nornj",
@@ -9,17 +9,9 @@
     "template",
     "react"
   ],
-  "author": "kingzhi <zyj10222@126.com>",
+  "repository": "https://github.com/zyj1022/language-nornj.git",
   "license": "MIT",
-  "activationCommands": {
-    "atom-workspace": "language-nornj:toggle"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/zyj1022/language-nornj.git"
-  },
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
-  },
-  "dependencies": {}
+  }
 }
