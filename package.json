@@ -1,7 +1,7 @@
 {
   "name": "language-nornj",
   "main": "./lib/language-nornj",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Nornj syntax highlighting support in Atom",
   "keywords": [
     "nornj",
