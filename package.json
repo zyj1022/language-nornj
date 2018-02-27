@@ -1,6 +1,6 @@
 {
   "name": "language-nornj",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "author": "kingzhi <zyj10222@126.com>",
   "description": "Nornj syntax highlighting support in Atom",
   "keywords": [
