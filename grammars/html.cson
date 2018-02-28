@@ -1,414 +1,66 @@
-'scopeName': 't.html'
+'scopeName': 'text.html.nj'
 'fileTypes': [
-  "html",
-  "t.html"
+  "t.html",
+  "t.htm",
+  "nj.html",
+  "nj.htm",
+  "nj",
+  "nornj"
 ]
 'name': "nornj"
 'patterns': [
   {
-    'begin': '<!--'
-    'captures':
-      '0':
-        'name': 'punctuation.definition.comment.t.html'
-    'end': '--\\s*>'
-    'name': 'comment.block.t.html'
-    'patterns': [
-      {
-        'match': '--(?!-*\\s*>)'
-        'name': 'invalid.illegal.bad-comments-or-CDATA.t.html'
-      }
-      {
-        'include': '#embedded-code'
-      }
-    ]
+    "include": "text.html.basic"
   }
   {
-    'begin': '(?i)(</?)(@title|#include|#each|#if|#else|#elseif|#case|#switch|#unless|#for|#list|#fn)(?=\\s|/?>)'
+    'begin': '(?i)(</?)((#|@|)([^\\s>]+))?'
     'beginCaptures':
       '1':
-        'name': 'punctuation.definition.tag.begin.t.html'
+        'name': 'punctuation.definition.tag.begin'
       '2':
-        'name': 'entity.name.tag.inline.$2.t.html'
+        'name': 'entity.name.tag.inline.$2'
     'end': '((?: ?/)?>)'
     'endCaptures':
       '1':
-        'name': 'punctuation.definition.tag.end.t.html'
-    'name': 'meta.tag.inline.$2.t.html'
+        'name': 'punctuation.definition.tag.end'
+    'name': 'meta.tag.inline.$2'
     'patterns': [
       {
         'include': '#tag-stuff'
       }
     ]
-  }
-  {
-    'begin': '(</?)([a-zA-Z0-9:-]+)'
-    'beginCaptures':
-      '1':
-        'name': 'punctuation.definition.tag.begin.t.html'
-      '2':
-        'name': 'entity.name.tag.other.t.html'
-    'end': '(>)'
-    'endCaptures':
-      '1':
-        'name': 'punctuation.definition.tag.end.t.html'
-    'name': 'meta.tag.other.t.html'
-    'patterns': [
-      {
-        'include': '#tag-stuff'
-      }
-    ]
-  }
-  {
-    'include': '#character-reference'
-  }
-  {
-    'match': '<>'
-    'name': 'invalid.illegal.incomplete.t.html'
   }
 ]
 'repository':
-  'embedded-code':
-    'patterns': [
-      {
-        'include': '#smarty'
-      }
-      {
-        'include': '#python'
-      }
-    ]
-  'character-reference':
-    # https://html.spec.whatwg.org/multipage/parsing.html#character-reference-state
-    # We're not fully compliant with the spec (we don't catch missing semicolons or invalid references)
-    # but that is mostly to prevent tokenizing ambiguous ampersands as errors.
-    # That could be added in the future though if we add the list of all valid character references,
-    # as language-css does with property names.
-    'patterns': [
-      {
-        'begin': '(&)(#\\d+|#[xX][0-9a-fA-F]+)'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.definition.entity.begin.t.html'
-          '2':
-            'name': 'entity.name.entity.other.t.html'
-        'end': ';'
-        'endCaptures':
-          '0':
-            'name': 'punctuation.definition.entity.end.t.html'
-        'name': 'constant.character.entity.t.html'
-      }
-      {
-        'match': '(&)([a-zA-Z0-9]+)(;)'
-        'name': 'constant.character.entity.t.html'
-        'captures':
-          '1':
-            'name': 'punctuation.definition.entity.begin.t.html'
-          '2':
-            'name': 'entity.name.entity.other.t.html'
-          '3':
-            'name': 'punctuation.definition.entity.end.t.html'
-      }
-      {
-        'match': '&(?!\\s|<|&|[a-zA-Z0-9])'
-        'name': 'invalid.illegal.bad-ampersand.t.html'
-      }
-    ]
-  'python':
-    'begin': '(?:^\\s*)<\\?python(?!.*\\?>)'
-    'end': '\\?>(?:\\s*$\\n)?'
-    'name': 'source.python.embedded.t.html'
-    'patterns': [
-      {
-        'include': 'source.python'
-      }
-    ]
-  'smarty':
-    'patterns': [
-      {
-        'begin': '(\\{(literal)\\})'
-        'captures':
-          '1':
-            'name': 'source.smarty.embedded.t.html'
-          '2':
-            'name': 'support.function.built-in.smarty'
-        'end': '(\\{/(literal)\\})'
-      }
-      {
-        'begin': '{{|{'
-        'disabled': 1
-        'end': '}}|}'
-        'name': 'source.smarty.embedded.t.html'
-        'patterns': [
-          {
-            'include': 'source.smarty'
-          }
-        ]
-      }
-    ]
-  'string-double-quoted':
-    'begin': '"'
+  'double-braces':
+    'begin': '{{{'
     'beginCaptures':
       '0':
-        'name': 'punctuation.definition.string.begin.t.html'
-    'end': '"'
+        'name': 'punctuation.definition.string.begin'
+    'end': '}}}'
     'endCaptures':
       '0':
-        'name': 'punctuation.definition.string.end.t.html'
-    'name': 'string.quoted.double.t.html'
-    'patterns': [
-      {
-        'include': '#embedded-code'
-      }
-      {
-        'include': '#character-reference'
-      }
-    ]
-  'string-single-quoted':
-    'begin': '\''
+        'name': 'punctuation.definition.string.end'
+    'name': 'string.braces.double'
+    'patterns': []
+  'braces':
+    'begin': '{{'
     'beginCaptures':
       '0':
-        'name': 'punctuation.definition.string.begin.t.html'
-    'end': '\''
+        'name': 'punctuation.definition.string.begin'
+    'end': '}}'
     'endCaptures':
       '0':
-        'name': 'punctuation.definition.string.end.t.html'
-    'name': 'string.quoted.single.t.html'
-    'patterns': [
-      {
-        'include': '#embedded-code'
-      }
-      {
-        'include': '#character-reference'
-      }
-    ]
-  'tag-generic-attribute':
-    # https://www.w3.org/TR/html51/syntax.html#attribute-name-state
-    'patterns': [
-      {
-        'begin': '([^\\s/=>"\'<]+)(=)'
-        'beginCaptures':
-          '1':
-            'name': 'entity.other.attribute-name.t.html'
-          '2':
-            'name': 'punctuation.separator.key-value.t.html'
-        'end': '(?!\\G)|(?=\\s|/?>)'
-        'name': 'meta.attribute-with-value.t.html'
-        'patterns': [
-          {
-            'include': '#string-double-quoted'
-          }
-          {
-            'include': '#string-single-quoted'
-          }
-          {
-            'include': '#unquoted-attribute'
-          }
-        ]
-      }
-      {
-        'match': '[^\\s/=>"\'<]+'
-        'captures':
-          '0':
-            'name': 'entity.other.attribute-name.t.html'
-        'name': 'meta.attribute-without-value.t.html'
-      }
-    ]
-  'tag-style-attribute':
-    'begin': '\\b(style)(=)'
-    'beginCaptures':
-      '1':
-        'name': 'entity.other.attribute-name.style.t.html'
-      '2':
-        'name': 'punctuation.separator.key-value.t.html'
-    'end': '(?!\\G)|(?=\\s|/?>)'
-    'name': 'meta.attribute-with-value.style.t.html'
-    'patterns': [
-      {
-        'match': '(")([^"]*)(")'
-        'name': 'string.quoted.double.t.html'
-        'captures':
-          '1':
-            'name': 'punctuation.definition.string.begin.t.html'
-          '2':
-            'name': 'source.css.style.t.html'
-            'patterns': [
-              {
-                'match': '.+'
-                'name': 'meta.property-list.css'
-                'captures':
-                  '0':
-                    'patterns': [
-                      {
-                        'include': '#embedded-code'
-                      }
-                      {
-                        'include': '#entities'
-                      }
-                      {
-                        'include': 'source.css#rule-list-innards'
-                      }
-                    ]
-              }
-            ]
-          '3':
-            'name': 'punctuation.definition.string.end.t.html'
-      }
-      {
-        'match': "(')([^']*)(')"
-        'name': 'string.quoted.single.t.html'
-        'captures':
-          '1':
-            'name': 'punctuation.definition.string.begin.t.html'
-          '2':
-            'name': 'source.css.style.t.html'
-            'patterns': [
-              {
-                'match': '.+'
-                'name': 'meta.property-list.css'
-                'captures':
-                  '0':
-                    'patterns': [
-                      {
-                        'include': '#embedded-code'
-                      }
-                      {
-                        'include': '#entities'
-                      }
-                      {
-                        'include': 'source.css#rule-list-innards'
-                      }
-                    ]
-              }
-            ]
-          '3':
-            'name': 'punctuation.definition.string.end.t.html'
-      }
-      {
-        'match': '([^\\s&>"\'<=`]|&(?=>))+'
-        'name': 'string.unquoted.t.html'
-        'captures':
-          '0':
-            'name': 'source.css.style.t.html'
-            'patterns': [
-              {
-                'match': '.+'
-                'name': 'meta.property-list.css'
-                'captures':
-                  '0':
-                    'patterns': [
-                      {
-                        'include': 'source.css#rule-list-innards'
-                      }
-                    ]
-              }
-            ]
-      }
-    ]
-  'tag-id-attribute':
-    'begin': '\\b(id)(=)'
-    'captures':
-      '1':
-        'name': 'entity.other.attribute-name.id.t.html'
-      '2':
-        'name': 'punctuation.separator.key-value.t.html'
-    'end': '(?!\\G)|(?=\\s|/?>)'
-    'name': 'meta.attribute-with-value.id.t.html'
-    'patterns': [
-      {
-        'begin': '"'
-        'beginCaptures':
-          '0':
-            'name': 'punctuation.definition.string.begin.t.html'
-        'contentName': 'meta.toc-list.id.t.html'
-        'end': '"'
-        'endCaptures':
-          '0':
-            'name': 'punctuation.definition.string.end.t.html'
-        'name': 'string.quoted.double.t.html'
-        'patterns': [
-          {
-            'include': '#embedded-code'
-          }
-          {
-            'include': '#character-reference'
-          }
-        ]
-      }
-      {
-        'begin': '\''
-        'beginCaptures':
-          '0':
-            'name': 'punctuation.definition.string.begin.t.html'
-        'contentName': 'meta.toc-list.id.t.html'
-        'end': '\''
-        'endCaptures':
-          '0':
-            'name': 'punctuation.definition.string.end.t.html'
-        'name': 'string.quoted.single.t.html'
-        'patterns': [
-          {
-            'include': '#embedded-code'
-          }
-          {
-            'include': '#character-reference'
-          }
-        ]
-      }
-      {
-        'include': '#unquoted-attribute'
-      }
-    ]
-  'tag-class-attribute':
-    'begin': '\\b(class)(=)'
-    'captures':
-      '1':
-        'name': 'entity.other.attribute-name.class.t.html'
-      '2':
-        'name': 'punctuation.separator.key-value.t.html'
-    'end': '(?!\\G)|(?=\\s|/?>)'
-    'name': 'meta.attribute-with-value.class.t.html'
-    'patterns': [
-      {
-        'include': '#string-double-quoted'
-      }
-      {
-        'include': '#string-single-quoted'
-      }
-      {
-        'include': '#unquoted-attribute'
-      }
-    ]
+        'name': 'punctuation.definition.string.end'
+    'name': 'string.braces'
+    'patterns': []
+
   'tag-stuff':
     'patterns': [
       {
-        'include': '#tag-id-attribute'
+        'include': '#double-braces'
       }
       {
-        'include': '#tag-class-attribute'
-      }
-      {
-        'include': '#tag-style-attribute'
-      }
-      {
-        'include': '#tag-generic-attribute'
-      }
-      {
-        'include': '#string-double-quoted'
-      }
-      {
-        'include': '#string-single-quoted'
-      }
-      {
-        'include': '#embedded-code'
-      }
-    ]
-  'unquoted-attribute':
-    'patterns': [
-      {
-        'include': '#character-reference'
-      }
-      {
-        # https://www.w3.org/TR/html51/syntax.html#attribute-value-unquoted-state
-        'match': '([^\\s&>"\'<=`]|&(?=>))+'
-        'name': 'string.unquoted.t.html'
+        'include': '#braces'
       }
     ]
