@@ -13,7 +13,7 @@
     "include": "text.html.basic"
   }
   {
-    'begin': '(?i)(</?)((#|@|)([^\\s>]+))?'
+    'begin': '(?i)(</?)((#|@{1,2})([^\\s>]+))?'
     'beginCaptures':
       '1':
         'name': 'punctuation.definition.tag.begin'
@@ -33,22 +33,22 @@
 ]
 'repository':
   'double-braces':
-    'begin': '{{{'
+    'begin': '{{{?'
     'beginCaptures':
       '0':
         'name': 'punctuation.definition.string.begin'
-    'end': '}}}'
+    'end': '}}}?'
     'endCaptures':
       '0':
         'name': 'punctuation.definition.string.end'
     'name': 'string.braces.double'
     'patterns': []
   'braces':
-    'begin': '{{'
+    'begin': '{{?'
     'beginCaptures':
       '0':
         'name': 'punctuation.definition.string.begin'
-    'end': '}}'
+    'end': '}}?'
     'endCaptures':
       '0':
         'name': 'punctuation.definition.string.end'

@@ -1,4 +1,4 @@
-'.t.html':
+'.text.html':
   'autocomplete':
     'extraWordCharacters': '-'
   'editor':
